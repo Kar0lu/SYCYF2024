@@ -51,15 +51,11 @@ cm = corrector(n, k, rm, ep, i)
 # outputs
 print('----------Results----------')
 
-print('Oryginal Message: ', color(m, n-5-el, n-el, k, n))
+print('Original Message: ', color(m, n-5-el, n-el, k, n))
 
 print('Encrypted Message:', color(em, n-5-el, n-el, k, n))
 print('Recived Message:  ', color(rm, n-5-el, n-el, k, n))
 print('Corrected message:', color(cm, n-5-el, n-el, k, n))
-
-# print('Encrypted Message:', bin(em))
-# print('Recived Message:  ', bin(rm))
-# print('Corrected message:', bin(cm))
 
 print("Error Pattern:", bin(ep)[2:])
 print('Error Location:',i)

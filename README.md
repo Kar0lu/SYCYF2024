@@ -17,11 +17,11 @@ Scheme and process of this simulation is on [page 265](https://pg024ec.files.wor
     * Appendix
 
 ## Main function
-Responsible for visualization of results of whole simulation.
+Responsible for visualization of results of the whole simulation.
 * n - Length of codeword.
-* k - Lenght of message
+* k - Length of message.
 * el - Position of error. You can change it by changing the subtrahend.
-* e - Patter of error. It's shifted n-times left to adjust position.
+* e - Pattern of error. It's shifted n-times left to adjust position.
 * m - Message inserted into the encoder.
 * g - Coding polynomial g(x) = (x^9+1)(x^5+x^2+1) = 100101000100101. The binary value is set of coefficients of this polynomial expansion.
 * em - Encoded message (overall input).
