@@ -1,5 +1,4 @@
-def color(s, r1, r2, y1, y2):
-    a = bin(s)[2:]
+def color(a, r1, r2, y1, y2):
     yellow_range = range(y1, y2)
     red_range = range(r1, r2)
     return ''.join([

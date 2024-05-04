@@ -17,7 +17,7 @@ def pregister(n, k, v, ep):
         register ^= (buffor << 2)
         
         
-        if (i<5 or i>n-6): print(f'[{counter%n+1}] [{current}] | {format(register, "#07b")[2:]}')
+        if (i<5 or i>n-6): print(f'[{counter%(n+1)}] [{current}] | {format(register, "#07b")[2:]}')
     
     counter = 0
     print('---------Rp Shifts---------')
