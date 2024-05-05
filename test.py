@@ -15,7 +15,7 @@ def run_main_multiple_times(num_times, output_file):
     with open(output_file, 'w') as f:
         for i in range(num_times):
             result = subprocess.run(['python', 'main.py'], capture_output=True, text=True)
-            f.write(f"Output {i+1}:\n")
+            f.write(f"Result {i+1}:\n")
             f.write(result.stdout)
             f.write("\n\n")
             print_progress_bar(i + 1, num_times, prefix='Progress:', suffix='Complete', length=50)
@@ -24,9 +24,9 @@ def run_main_multiple_times(num_times, output_file):
     total_time = end_time - start_time
     print("\nTotal time taken:", total_time, "seconds")
 
-tests = 500
+tests = int(input("Number of tests to be done: "))
 
-etpo = 0.113634756565094
+etpo = 0.183634756565094
 hours = int(tests * etpo / 3600)
 minutes = int((tests * etpo % 3600) / 60)
 seconds = int(tests * etpo % 60)

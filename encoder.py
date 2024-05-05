@@ -1,11 +1,11 @@
 # simulation of encoding shifter
 def encoder(n, k, m):
     # print('-----Encoding-----')
-    counter = 0
+    # counter = 0
     register = 0
 
     for i in range(k):
-        counter += 1
+        # counter += 1
         current = ((m >> (k-1-i)) & (1))
         
         buffor = (register & 1) ^ current
@@ -19,7 +19,7 @@ def encoder(n, k, m):
     
         # print(f'[{counter%266}] [{current}] | {format(eshifter, "#016b")[2:]}')
     
-    counter = 0
+    # counter = 0
     v = 0
 
     for i in range(n-k):

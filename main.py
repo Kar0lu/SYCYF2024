@@ -4,7 +4,7 @@ import json
 from encoder import encoder
 from pregister import pregister
 from cregister import cregister
-from color import color
+# from color import color
 from corrector import corrector
 from generator import generator
 
@@ -17,10 +17,10 @@ results = {}
 
 # # ----------manual input----------
 # # message
-# m = 0b1110101101010100010101110110101001010101110110011001101100101010101110100010011110100011011001111000101110010110011111010000010101111101011010111011011001111110001000000011001010011100100011110000101111010010000101111110111100100000001010110111111010110110101110010
+# m = 0b11101011010101000101011101101001010101110110011001101100101010101110100010011110100011011001111000101110010110011111010000010101111101011010111011011001111110001000000011001010011100100011110000101111010010000101111110111100100000001010110111111010110110101110010
 
 # # error pattern
-# e = 0b10111
+# e = 0b101
 # results['Tested_Error'] = bin(e)[2:]
 
 # assert(len(bin(e)[2:]) <= l)
@@ -74,9 +74,8 @@ cm = corrector(n, k, rm, ep, i)
 # print('Is correct:', m==cm)
 # # ------------------------------------
 
+
 # ------------auto results------------
-
-
 results['Tested_Location'] = el
 results['Original_Message'] = bin(m)[2:]
 results['Encrypted_Message'] = bin(em)[2:]
@@ -88,6 +87,6 @@ results['Is_Corrected'] = m == cm
 
 results_json = json.dumps(results, indent=4)
 
-print('----------Results----------')
+# print('----------Results----------')
 print(results_json)
 # ------------------------------------
