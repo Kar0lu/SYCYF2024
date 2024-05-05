@@ -31,6 +31,9 @@ Responsible for running the whole simulation. It is possible to test it manually
 * i - Predicted position of error. Calculated on the basis of rc, rp and two coefficients characteristic for g(x). Learn more on [page 268](https://pg024ec.files.wordpress.com/2013/09/error-control-coding-by-shu-lin.pdf) and [page 12](https://ntrs.nasa.gov/api/citations/19750017564/downloads/19750017564.pdf)
 * cm - Corrected message (overall output).
 
+## Test function
+Using subprocess library it runs main function user-specified number of times, taking random error location, error pattern and message from generator function. Then it saves the results returned by main.py in json format to output.txt file, where user can analyse them.
+
 ## Other functions
 * Encoder - Takes message (int m). Returns encoded message (int em).
 * Cregister - Simulates error-pattern register. Takes recived message (int rm). Returns error pattern (int ep) and required number of shifts (int rc).
