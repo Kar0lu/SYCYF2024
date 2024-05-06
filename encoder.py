@@ -11,11 +11,11 @@ def encoder(n, k, m):
         buffor = (register & 1) ^ current
 
         register >>= 1
-        register |= (buffor << 13)
-        register ^= (buffor << 11)
+        register |= (buffor << 23)
+        register ^= (buffor << 19)
+        register ^= (buffor << 14)
         register ^= (buffor << 8)
         register ^= (buffor << 4)
-        register ^= (buffor << 2)
     
         # print(f'[{counter%266}] [{current}] | {format(eshifter, "#016b")[2:]}')
     

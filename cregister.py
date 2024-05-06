@@ -13,21 +13,21 @@ def cregister(n, k, v):
         buffor = (register & 1) ^ current
 
         register >>= 1
-        register |= (buffor << 8)
+        register |= (buffor << 14)
         
         
         # if (i<5 or i>n-6): print(f'[{counter%(n+1)}] [{current}] | {format(register, "#011b")[2:]}')
     
     counter = 0
     # print('---------Rc Shifts---------')
-    while((register & 0b1111)!= 0):
+    while((register & 0b1111111)!= 0):
         counter += 1
         
         buffor = register & 1
 
         register >>= 1
-        register |= (buffor << 8)
+        register |= (buffor << 14)
         
         # print(f'[{counter}] [{0}] | {format(register, "#011b")[2:]}')
 
-    return register >> 4, counter
+    return register >> 7, counter

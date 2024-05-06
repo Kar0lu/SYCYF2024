@@ -4,58 +4,61 @@ import json
 from encoder import encoder
 from pregister import pregister
 from cregister import cregister
-# from color import color
+from color import color
 from corrector import corrector
 from generator import generator
 
 # global used
-n = 279
-k = 265
-l = 5
+n = 7665
+k = 7641
+l = 8
+
+n_ = 88
+k_ = 64
 
 results = {}
 
 # # ----------manual input----------
 # # message
-# m = 0b11101011010101000101011101101001010101110110011001101100101010101110100010011110100011011001111000101110010110011111010000010101111101011010111011011001111110001000000011001010011100100011110000101111010010000101111110111100100000001010110111111010110110101110010
+# m = 0b1010101010101101010101100001110101010100100001101010101010010000
 
 # # error pattern
-# e = 0b101
+# e = 0b11101010
 # results['Tested_Error'] = bin(e)[2:]
 
 # assert(len(bin(e)[2:]) <= l)
 
 # # error location
-# el = 0
+# el = 7570
 # # --------------------------------
 
 # -----------auto input-----------
-m, e, el = generator(n, k, l)
-assert(m < mp.power(2, k))
+m, e, el = generator(n_, k_, l)
+assert(m < mp.power(2, k_))
 assert(e < mp.power(2, l))
 # --------------------------------
 ex = len(bin(e)[2:])
-if(el+ex > n): e >>= (el+ex)-n
-else: e <<= n-(el+ex)
+if(el+ex > n_): e >>= (el+ex)-n_
+else: e <<= n_-(el+ex)
 
 # coding polynomial
-g = 0b100101000100101
+g = 0b1000010001000001000010001
 assert(len(bin(g)[2:]) == n-k+1)
 
 # encoded message
-em = encoder(n, k, m)
+em = encoder(n_, k_, m)
 
 # recived message (with error)
 rm = em ^ e
 
 # shifting performed by the circuit
-ep, rc = cregister(n, k, rm)
-rp = pregister(n, k, rm, ep)
+ep, rc = cregister(n_, k_, rm)
+rp = pregister(n_, k_, rm, ep)
 
 # rp, rc and modulo coefficients depend on g(x)
-i =  (63*rp - 62*rc-1) % n
+i =  (-510*rp + 511*rc -7156 - 7577) % n
 
-cm = corrector(n, k, rm, ep, i)
+cm = corrector(n_, k_, rm, ep, i)
 
 
 # # -----------manual results-----------

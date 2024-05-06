@@ -13,8 +13,8 @@ def pregister(n, k, v, ep):
         buffor = (register & 1)
 
         register >>= 1
-        register |= ((buffor ^ current) << 4)
-        register ^= (buffor << 2)
+        register |= ((buffor ^ current) << 8)
+        register ^= (buffor << 4)
         
         
         # if (i<5 or i>n-6): print(f'[{counter%(n+1)}] [{current}] | {format(register, "#07b")[2:]}')
@@ -27,8 +27,8 @@ def pregister(n, k, v, ep):
         buffor = register & 1
 
         register >>= 1
-        register |= (buffor << 4)
-        register ^= (buffor << 2)
+        register |= (buffor << 8)
+        register ^= (buffor << 4)
         
         # print(f'[{counter}] [{0}] | {format(register, "#07b")[2:]}')
 

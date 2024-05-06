@@ -4,7 +4,7 @@ def corrector(n, k, rm, ep, j):
         current = ((rm >> (n-1-i)) & 1)
         register |= current
 
-        if(i >= j-4 and i <= j): register ^= (ep >> (4-j+i)) & 1
+        if(i >= j-7 and i <= j): register ^= (ep >> (7-j+i)) & 1
 
         register <<= 1
 
