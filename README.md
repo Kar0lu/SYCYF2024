@@ -1,17 +1,11 @@
-# Fire Code (279, 265) implementation
-This simulation is based on example of single-burst-error correction code, mentioned in book [Error Control Coding: Fundamentals and Applications by Shu Lin](https://pg024ec.files.wordpress.com/2013/09/error-control-coding-by-shu-lin.pdf) (page 267). It's capable of detecting and correcting errors of length 5 or fewer.
+# Fire Code (88, 64) implementation
+This simulation is based on example of single-burst-error correction code, mentioned in book [Error Control Coding: Fundamentals and Applications by Shu Lin](https://pg024ec.files.wordpress.com/2013/09/error-control-coding-by-shu-lin.pdf) (page 267). It's capable of detecting and correcting errors of length 8 or fewer.
 
 Scheme and process of this simulation is on [page 265](https://pg024ec.files.wordpress.com/2013/09/error-control-coding-by-shu-lin.pdf). If you encounter problems, I encourage you to follow my research:
 * [Error Control Coding: Fundamentals and Applications by Shu Lin](https://pg024ec.files.wordpress.com/2013/09/error-control-coding-by-shu-lin.pdf)
-    * chapter 4.1
-    * chapter 4.3
-    * chapter 4.4
-    * chapter 4.5
-    * chapter 4.7
+    * chapter 4.1, 4, 5, 7
     * chapter 5.1
-    * chapter 9.1
-    * chapter 9.2
-    * chapter 9.3
+    * chapter 9.1, 2, 3
 * [Augmented Burst-Error Correction For Unicon Laser Memory](https://ntrs.nasa.gov/api/citations/19750017564/downloads/19750017564.pdf)
     * Pages 5-12
     * Appendix
@@ -23,10 +17,10 @@ Responsible for running the whole simulation. It is possible to test it manually
 * el - Position of error. You can change it by changing the subtrahend.
 * e - Pattern of error. It's shifted n-times left to adjust position.
 * m - Message inserted into the encoder.
-* g - Coding polynomial g(x) = (x^9+1)(x^5+x^2+1) = 100101000100101. The binary value is set of coefficients of this polynomial expansion.
+* g - Coding polynomial. The binary value is set of coefficients of this polynomial expansion.
 * em - Encoded message (overall input).
 * rm - Recived message. Result of applying error on encoded message.
-* rc - Variable used in the calculation of l. Result of shifting error-pattern register. Represents number of shifts required to achive zeros in 4 high-order bit positions.
+* rc - Variable used in the calculation of l. Result of shifting error-pattern register. Represents number of shifts required to achive zeros in 7 high-order bit positions.
 * rp - Variable used in the calculation of l. Result of shifting error-location register. Represents number of shifts required to achive error pattern.
 * i - Predicted position of error. Calculated on the basis of rc, rp and two coefficients characteristic for g(x). Learn more on [page 268](https://pg024ec.files.wordpress.com/2013/09/error-control-coding-by-shu-lin.pdf) and [page 12](https://ntrs.nasa.gov/api/citations/19750017564/downloads/19750017564.pdf)
 * cm - Corrected message (overall output).
