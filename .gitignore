@@ -3,5 +3,6 @@ __pycache__/
 *.txt
 
 # modelsim
-modelsim/work/*
+[_@]*
 *.wlf
+transcript*
