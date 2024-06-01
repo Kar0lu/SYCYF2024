@@ -1,2 +1,7 @@
+# python
 __pycache__/
 *.txt
+
+# modelsim
+modelsim/work/*
+*.wlf

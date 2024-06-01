@@ -1,7 +1,8 @@
-# Fire Code (88, 64) implementation
-This simulation is based on example of single-burst-error correction code, mentioned in book [Error Control Coding: Fundamentals and Applications by Shu Lin](https://pg024ec.files.wordpress.com/2013/09/error-control-coding-by-shu-lin.pdf) (page 267). It's capable of detecting and correcting errors of length 8 or fewer.
+# Fire Code (64, 40) implementation
+This project consists of 3 parts: python prototype, modelsim simulation and quartus implementation. Each part is stored in an appropriately named folder.
 
-Scheme and process of this simulation is on [page 265](https://pg024ec.files.wordpress.com/2013/09/error-control-coding-by-shu-lin.pdf). If you encounter problems, I encourage you to follow my research:
+# Python prototype
+This prototype is based on example of single-burst-error correction code, mentioned in book [Error Control Coding: Fundamentals and Applications by Shu Lin](https://pg024ec.files.wordpress.com/2013/09/error-control-coding-by-shu-lin.pdf) (page 267). If you encounter problems understanding it, I encourage you to follow my research:
 * [Error Control Coding: Fundamentals and Applications by Shu Lin](https://pg024ec.files.wordpress.com/2013/09/error-control-coding-by-shu-lin.pdf)
     * chapter 4.1, 4, 5, 7
     * chapter 5.1
@@ -36,3 +37,6 @@ Using subprocess library it runs main function user-specified number of times, t
 * Color - Just for easier coloring of results. Takes int and positions of red and yellow markers. Returns string with coloring.
 * Generator - generates random inputs for main function
 * Test - runs main function several times and writes outputs to a text file
+
+# Modelsim simulation
+Folder contains Verilog files that have to be inserted to modelsim project in order to perform correct.
