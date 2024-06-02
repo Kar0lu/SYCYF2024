@@ -1,82 +1,50 @@
+`timescale 1ps/1ps
 module tb;
+    localparam N = 64;
+    localparam K = 40;
+    reg clk, rst, mode;
+    reg [N-1:0] data_in;
+    wire [N-1:0] data_out;
 
-    parameter K = 40;
-    parameter N = 64;
-    parameter L = 8'b11111111;
-    parameter EL = 10;
-
-    reg clk;
-    reg reset;
-    reg start_encoder;
-    reg start_decoder;
-    reg [K-1:0] data_in;
-    wire [N-1:0] encoded_data;
-    wire [N-1:0] corrupted_data;
-    wire [K-1:0] decoded_data;
-    
-    // Encoder
-    encoder #(.N(N), .K(K)) enc (
+    system #(.N(N), .K(K)) UUT (
         .clk(clk),
-        .reset(reset),
-        .start(start_encoder),
+        .rst(rst),
+        .mode(mode),
         .data_in(data_in),
-        .data_out(encoded_data),
-        .done(encoder_done)
-    );
-
-    // Error
-    assign corrupted_data = encoded_data ^ (64'b11011001 << 56);
-
-    // Decoder
-    decoder #(.N(N), .K(K)) dec (
-        .clk(clk),
-        .reset(reset),
-        .start(start_decoder),
-        .data_in(corrupted_data),
-        .data_out(decoded_data),
-        .done(decoder_done)
+        .data_out(data_out)
     );
 
     initial begin
-        // Initialize signals
         clk = 0;
-        reset = 1;
-        start_encoder = 0;
-        start_decoder = 0;
-        data_in = 40'b1001110101010100100001101010101010010001;
-
-        // Reset the system
-        #2 reset = 0;
-
-        // Encode
-        $display("[%0t] | Starting encoder", $time);
-        #1 start_encoder = 1;
-        #2 start_encoder = 0;
-
-        // Wait
-        $display("[%0t] | Waiting for encoder", $time);
-        wait(encoder_done);
-        $display("[%0t] | encoded_data = %0b", $time, encoded_data);
-
-        // Decode
-        $display("[%0t] | Starting decoder", $time);
-        #1 start_decoder = 1;
-        #2 start_decoder = 0;
-
-
-        // Wait
-        $display("[%0t] | Waiting for decoder", $time);
-        wait(decoder_done);
-        $display("[%0t] | decoded_data = %0b", $time, decoded_data);
-
-        if(decoded_data == data_in) $display("SUCCESS");
-        else $display("NOOOO");
-
-        #2;
-        $stop;
+        forever begin
+            #1 clk = ~clk;
+        end
     end
 
-    // Clock generation
-    always #1 clk = ~clk;
-
+    initial begin
+        data_in = 0;
+        rst = 1;
+        #5;
+        rst = 0;
+        $display("[%4t] | START ENCODING", $time);
+        data_in = 40'b1101110101010100100001101010101010010001;
+        $display("[%4t] | data_in: %40b", $time, data_in);
+        mode = 0;
+        $display("[%4t] | mode: %0b", $time, mode);
+        wait(data_out);
+        $display("[%4t] | DATA ENCODED | %64b", $time, data_out);
+        #5;
+        $display("[%4t] | START DECODING", $time);
+        data_in = data_out ^ (64'b11111111 << 50);
+        $display("[%4t] | data_in: %64b", $time, data_in);
+        mode = 1;
+        $display("[%4t] | mode: %0b", $time, mode);
+        @(posedge data_out);
+        $display("[%4t] | DATA DECODED | %40b", $time, data_out);
+        if(data_out == 40'b1101110101010100100001101010101010010001) begin
+            $display("SUCCESS");
+        end else begin
+            $display("FAIL");
+        end
+    end
 endmodule
