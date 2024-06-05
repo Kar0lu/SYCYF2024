@@ -29,4 +29,4 @@ sim:/tb/UUT/reg_p/shift
 add wave -position insertpoint  \
 sim:/tb/UUT/reg_p/local_reg
 
-run
+run 4000

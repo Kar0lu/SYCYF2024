@@ -6,11 +6,11 @@ module reg_p #(
     input rst,
     input shift,
     input [N-1:0] data_in,
-    output [10:0] count,
+    output [9:0] count,
     output [8:0] data_out
 );
     reg [8:0] local_reg;
-    reg [10:0] local_count;
+    reg [9:0] local_count;
 
     assign data_out = local_reg;
     assign count = local_count;
@@ -21,7 +21,6 @@ module reg_p #(
             local_reg <= 0;
             local_count <= 0;
         end else if (shift) begin
-            // $display("[%4t] | data_in: %0b | local_count: %2d | data_out: %24b | count: %2d", $time, data_in[K-1-local_count], local_count, data_out, count);
             local_reg[0] <= local_reg[1];
             local_reg[1] <= local_reg[2];
             local_reg[2] <= local_reg[3];

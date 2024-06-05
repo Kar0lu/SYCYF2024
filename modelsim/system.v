@@ -14,9 +14,9 @@ module system #(
     wire [23:0] reg_e_out;
     wire [14:0] reg_c_out;
     wire [8:0]  reg_p_out;
-    wire [10:0] reg_e_count;
-    wire [10:0] reg_c_count;
-    wire [10:0] reg_p_count;
+    wire [5:0] reg_e_count;
+    wire [6:0] reg_c_count;
+    wire [9:0] reg_p_count;
     wire [K-1:0] reg_e_in;
     wire [N-1:0] reg_c_in;
     wire [N-1:0] reg_p_in;
