@@ -104,7 +104,7 @@ module controler #(
                 end
 
                 DECODE_SHIFT_P: begin
-                    if (reg_p_out == {0, reg_c_out[14:7]}) begin
+                    if (reg_p_out == {1'b0, reg_c_out[14:7]}) begin
                         $display("[%4t] | DECODE_3 FINISHED | reg_c_out: %15b | shift_c: %0b | reg_c_count: %2d | reg_c_in: %64b", $time, reg_c_out, shift_c, reg_c_count, reg_c_in);
                         $display("[%4t] | DECODE_3 FINISHED | reg_p_out: %9b | shift_p: %0b | reg_p_count: %2d | reg_p_in: %64b", $time, reg_p_out, shift_p, reg_p_count, reg_p_in);
                         i = (-510*(reg_p_count-64) + 511*(reg_c_count-64) - 6620) % 7665;

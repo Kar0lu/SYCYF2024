@@ -38,7 +38,7 @@ module reg_c #(
             reg_c[14] <= data_in_bit ^ reg_c[0];
             local_count <= local_count + 1;
         end
-        if(shift) $display("[%4t] | REG_C | data_in: %0b | local_count: %2d | data_out: %15b | count: %2d", $time, data_in_bit, local_count, data_out, count);
+        // if(shift) $display("[%4t] | REG_C | data_in: %0b | local_count: %2d | data_out: %15b | count: %2d", $time, data_in_bit, local_count, data_out, count);
     end
 
 endmodule

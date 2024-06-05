@@ -1,11 +1,4 @@
-C:/Users/karol/Desktop/SYCYF/pro/shortened_firecode(64,40)/modelsim/reg_p.v {1 {vlog -work work -stats=none C:/Users/karol/Desktop/SYCYF/pro/shortened_firecode(64,40)/modelsim/reg_p.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module reg_p
-
-Top level modules:
-	reg_p
-
-} {} {}} C:/Users/karol/Desktop/SYCYF/pro/shortened_firecode(64,40)/modelsim/system.v {1 {vlog -work work -stats=none C:/Users/karol/Desktop/SYCYF/pro/shortened_firecode(64,40)/modelsim/system.v
+C:/Users/karol/Desktop/SYCYF/pro/shortened_firecode(64,40)/modelsim/system.v {1 {vlog -work work -stats=none C:/Users/karol/Desktop/SYCYF/pro/shortened_firecode(64,40)/modelsim/system.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module system
 
@@ -22,22 +15,7 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 -- Compiling module reg_p
 ** Error: (vlog-13038) C:/Users/karol/Desktop/SYCYF/modelsim/reg_p.v(10): near ")": Missing port in ansi port list.
 
-} {4.0 5.0} {}} C:/Users/karol/Desktop/SYCYF/pro/shortened_firecode(64,40)/modelsim/controler.v {2 {vlog -work work -stats=none C:/Users/karol/Desktop/SYCYF/pro/shortened_firecode(64,40)/modelsim/controler.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module controler
-** Warning: C:/Users/karol/Desktop/SYCYF/pro/shortened_firecode(64,40)/modelsim/controler.v(107): (vlog-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-
-Top level modules:
-	controler
-
-} {} {}} C:/Users/karol/Desktop/SYCYF/pro/shortened_firecode(64,40)/modelsim/reg_c.v {1 {vlog -work work -stats=none C:/Users/karol/Desktop/SYCYF/pro/shortened_firecode(64,40)/modelsim/reg_c.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module reg_c
-
-Top level modules:
-	reg_c
-
-} {} {}} C:/Users/karol/Desktop/SYCYF/pro/shortened_firecode(64,40)/modelsim/reg_e.v {1 {vlog -work work -stats=none C:/Users/karol/Desktop/SYCYF/pro/shortened_firecode(64,40)/modelsim/reg_e.v
+} {4.0 5.0} {}} C:/Users/karol/Desktop/SYCYF/pro/shortened_firecode(64,40)/modelsim/reg_e.v {1 {vlog -work work -stats=none C:/Users/karol/Desktop/SYCYF/pro/shortened_firecode(64,40)/modelsim/reg_e.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module reg_e
 
@@ -57,7 +35,14 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 -- Compiling module reg_e
 ** Error: (vlog-13038) C:/Users/karol/Desktop/SYCYF/modelsim/reg_e.v(10): near ")": Missing port in ansi port list.
 
-} {4.0 5.0} {}} C:/Users/karol/Desktop/SYCYF/modelsim/tb.v {0 {vlog -work work -stats=none C:/Users/karol/Desktop/SYCYF/modelsim/tb.v
+} {4.0 5.0} {}} C:/Users/karol/Desktop/SYCYF/pro/shortened_firecode(64,40)/modelsim/tb.v {1 {vlog -work work -stats=none C:/Users/karol/Desktop/SYCYF/pro/shortened_firecode(64,40)/modelsim/tb.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module tb
+
+Top level modules:
+	tb
+
+} {} {}} C:/Users/karol/Desktop/SYCYF/modelsim/tb.v {0 {vlog -work work -stats=none C:/Users/karol/Desktop/SYCYF/modelsim/tb.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 -- Compiling module tb
 ** Error: (vlog-13069) C:/Users/karol/Desktop/SYCYF/modelsim/tb.v(2): near "initial": syntax error, unexpected initial, expecting ';'.

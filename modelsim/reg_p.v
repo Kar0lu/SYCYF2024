@@ -33,7 +33,7 @@ module reg_p #(
             reg_p[8] <= data_in_bit ^ reg_p[0];
             local_count <= local_count + 1;
         end
-        if(shift) $display("[%4t] | REG_P | data_in: %0b | local_count: %2d | data_out: %9b | count: %2d", $time, data_in_bit, local_count, data_out, count);
+        // if(shift) $display("[%4t] | REG_P | data_in: %0b | local_count: %2d | data_out: %9b | count: %2d", $time, data_in_bit, local_count, data_out, count);
     end
 
 endmodule
