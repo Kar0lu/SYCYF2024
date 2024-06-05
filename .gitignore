@@ -6,3 +6,13 @@ __pycache__/
 [_@]*
 *.wlf
 transcript*
+modelsim/wlft1m40gj
+modelsim/wlfts4q8zb
+modelsim/wlfttg6wqv
+modelsim/wlftzsh3tt
+modelsim/SYCYF.mpf
+
+#quartus
+quartus/
+modelsim/SYCYF.cr.mti
+modelsim/SYCYF.mpf
