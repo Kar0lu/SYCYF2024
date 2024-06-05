@@ -19,7 +19,7 @@ sim:/tb/UUT/reg_c/shift
 add wave -position insertpoint  \
 sim:/tb/UUT/reg_c/local_count
 add wave -position insertpoint  \
-sim:/tb/UUT/reg_c/reg_c
+sim:/tb/UUT/reg_c/local_reg
 add wave -position insertpoint  \
 sim:/tb/UUT/reg_c/data_out
 
@@ -30,7 +30,7 @@ sim:/tb/UUT/reg_p/shift
 add wave -position insertpoint  \
 sim:/tb/UUT/reg_p/local_count
 add wave -position insertpoint  \
-sim:/tb/UUT/reg_p/reg_p
+sim:/tb/UUT/reg_p/local_reg
 add wave -position insertpoint  \
 sim:/tb/UUT/reg_p/data_out
 

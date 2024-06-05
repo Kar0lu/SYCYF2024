@@ -20,7 +20,7 @@ add wave -position insertpoint  \
 sim:/tb/UUT/reg_e/local_count
 
 add wave -position insertpoint  \
-sim:/tb/UUT/reg_e/reg_e
+sim:/tb/UUT/reg_e/local_reg
 add wave -position insertpoint  \
 sim:/tb/UUT/reg_e/data_out
 

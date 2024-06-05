@@ -15,14 +15,7 @@ Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 
 -- Compiling module reg_p
 ** Error: (vlog-13038) C:/Users/karol/Desktop/SYCYF/modelsim/reg_p.v(10): near ")": Missing port in ansi port list.
 
-} {4.0 5.0} {}} C:/Users/karol/Desktop/SYCYF/pro/shortened_firecode(64,40)/modelsim/reg_e.v {1 {vlog -work work -stats=none C:/Users/karol/Desktop/SYCYF/pro/shortened_firecode(64,40)/modelsim/reg_e.v
-Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
--- Compiling module reg_e
-
-Top level modules:
-	reg_e
-
-} {} {}} C:/Users/karol/Desktop/SYCYF/modelsim/controler.v {1 {vlog -work work -stats=none C:/Users/karol/Desktop/SYCYF/modelsim/controler.v
+} {4.0 5.0} {}} C:/Users/karol/Desktop/SYCYF/modelsim/controler.v {1 {vlog -work work -stats=none C:/Users/karol/Desktop/SYCYF/modelsim/controler.v
 Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
 
 } {} {}} C:/Users/karol/Desktop/SYCYF/modelsim/reg_c.v {0 {vlog -work work -stats=none C:/Users/karol/Desktop/SYCYF/modelsim/reg_c.v
