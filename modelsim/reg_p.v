@@ -5,34 +5,35 @@ module reg_p #(
     input clk,
     input rst,
     input shift,
-    input data_in,
+    input [N-1:0] data_in,
+    output [10:0] count,
     output [8:0] data_out
 );
     reg [8:0] reg_p;
-    wire [8:0] reg_p_next;
+    reg [10:0] local_count;
 
-    assign data_out = (shift) ? reg_p_next : reg_p;
+    assign data_out = reg_p;
+    assign count = local_count;
+    assign data_in_bit = (local_count >= N) ? 1'b0 : data_in[N-1-local_count];
 
-    assign reg_p_next[0] = reg_p[1];
-    assign reg_p_next[1] = reg_p[2];
-    assign reg_p_next[2] = reg_p[3];
-    assign reg_p_next[3] = reg_p[4];
-    assign reg_p_next[4] = reg_p[5] ^ reg_p[0];
-    assign reg_p_next[5] = reg_p[6];
-    assign reg_p_next[6] = reg_p[7];
-    assign reg_p_next[7] = reg_p[8];
-    assign reg_p_next[8] = reg_p[0] ^ data_in;
-
-    initial begin
-        reg_p = 0;
-    end
-
-    always @(posedge clk or posedge rst) begin
+    always @(posedge clk, posedge rst) begin
         if(rst) begin
             reg_p <= 0;
+            local_count <= 0;
         end else if (shift) begin
-            reg_p <= reg_p_next;
+            // $display("[%4t] | data_in: %0b | local_count: %2d | data_out: %24b | count: %2d", $time, data_in[K-1-local_count], local_count, data_out, count);
+            reg_p[0] <= reg_p[1];
+            reg_p[1] <= reg_p[2];
+            reg_p[2] <= reg_p[3];
+            reg_p[3] <= reg_p[4];
+            reg_p[4] <= reg_p[5] ^ reg_p[0];
+            reg_p[5] <= reg_p[6];
+            reg_p[6] <= reg_p[7];
+            reg_p[7] <= reg_p[8];
+            reg_p[8] <= data_in_bit ^ reg_p[0];
+            local_count <= local_count + 1;
         end
+        if(shift) $display("[%4t] | REG_P | data_in: %0b | local_count: %2d | data_out: %9b | count: %2d", $time, data_in_bit, local_count, data_out, count);
     end
 
 endmodule

@@ -6,27 +6,22 @@ add wave -position insertpoint  \
 sim:/tb/clk
 
 add wave -position insertpoint  \
-sim:/tb/UUT/mode
+sim:/tb/UUT/controler/mode
+add wave -position insertpoint  \
+sim:/tb/UUT/controler/data_in
+add wave -position insertpoint  \
+sim:/tb/UUT/controler/data_out
 
 add wave -position insertpoint  \
+sim:/tb/UUT/reg_e/data_in
+add wave -position insertpoint  \
 sim:/tb/UUT/reg_e/shift
+add wave -position insertpoint  \
+sim:/tb/UUT/reg_e/local_count
+
 add wave -position insertpoint  \
 sim:/tb/UUT/reg_e/reg_e
 add wave -position insertpoint  \
 sim:/tb/UUT/reg_e/data_out
-
-add wave -position insertpoint  \
-sim:/tb/UUT/reg_c/shift
-add wave -position insertpoint  \
-sim:/tb/UUT/reg_c/reg_c
-add wave -position insertpoint  \
-sim:/tb/UUT/reg_c/data_out
-
-add wave -position insertpoint  \
-sim:/tb/UUT/reg_p/shift
-add wave -position insertpoint  \
-sim:/tb/UUT/reg_p/reg_p
-add wave -position insertpoint  \
-sim:/tb/UUT/reg_p/data_out
 
 run
