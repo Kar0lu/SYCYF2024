@@ -15,13 +15,19 @@ module system #(
     wire [14:0] reg_c_out;
     wire [8:0]  reg_p_out;
     wire [5:0] reg_e_count;
-    wire [6:0] reg_c_count;
+    wire [7:0] reg_c_count;
     wire [9:0] reg_p_count;
     wire [K-1:0] reg_e_in;
     wire [N-1:0] reg_c_in;
     wire [N-1:0] reg_p_in;
 
-    reg_e #(.N(N), .K(K)) reg_e (
+    wire [31:0] modulo_remainder;
+    wire [31:0] dividend;
+    wire [31:0] divisor;
+    wire start_modulo;
+    wire modulo_done;
+
+    reg_e #(.N(N), .K(K)) u_reg_e (
         .clk(clk),
         .rst(rst),
         .shift(shift_e),
@@ -30,7 +36,7 @@ module system #(
         .data_out(reg_e_out)
     );
 
-    reg_c #(.N(N), .K(K)) reg_c (
+    reg_c #(.N(N), .K(K)) u_reg_c (
         .clk(clk),
         .rst(rst),
         .shift(shift_c),
@@ -39,7 +45,7 @@ module system #(
         .data_out(reg_c_out)
     );
 
-    reg_p #(.N(N), .K(K)) reg_p (
+    reg_p #(.N(N), .K(K)) u_reg_p (
         .clk(clk),
         .rst(rst),
         .shift(shift_p),
@@ -48,7 +54,17 @@ module system #(
         .data_out(reg_p_out)
     );
 
-    controler #(.N(N), .K(K)) controler (
+    modulo_divisor u_modulo_divisor (
+        .dividend(dividend),
+        .divisor(divisor),
+        .clk(clk),
+        .rst(rst),
+        .start(start_modulo),
+        .remainder(modulo_remainder),
+        .done(modulo_done)
+    );
+
+    controler #(.N(N), .K(K)) u_controler (
         .clk(clk),
         .rst(rst),
         .data_in(data_in),
@@ -65,7 +81,12 @@ module system #(
         .shift_e(shift_e),
         .shift_c(shift_c),
         .shift_p(shift_p),
-        .data_out(data_out)
+        .data_out(data_out),
+        .dividend(dividend),
+        .divisor(divisor),
+        .modulo_remainder(modulo_remainder),
+        .modulo_done(modulo_done),
+        .start_modulo(start_modulo)
     );
     
 

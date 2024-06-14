@@ -20,16 +20,15 @@ results = {}
 
 # ----------manual input----------
 # message
-m = 0b1001110101010100100001101010101010010001
-
+m = 0b1101110101010100100001101010101010010001
 # error pattern
-e = 0b11011001
+e = 0b11111111
 results['Tested_Error'] = bin(e)[2:]
 
 assert(len(bin(e)[2:]) <= l)
 
 # error location
-el = 0
+el = -1
 # --------------------------------
 
 # # -----------auto input-----------
@@ -57,7 +56,12 @@ rp = pregister(n_, rm, ep)
 
 
 # rp, rc and modulo coefficients depend on g(x)
-i =  (-510*rp + 511*rc -7099) % n
+if (-510*(rp+64) + 511*(rc+64) >= 0):
+    i = (-510*(rp+64) + 511*(rc+64)) % n
+    print("DIVIDENT POSITIVE")
+else:
+    i = (510*(rp+64) - 511*(rc+64)) % n
+    print("DIVIDENT NEGATIVE")
 
 cm = corrector(n_, k_, rm, ep, i)
 
@@ -72,8 +76,9 @@ print('Recived Message:  ', color(bin(rm)[2:].zfill(n_), el, el+ex, k, n))
 print('Corrected message:', color(bin(cm)[2:].zfill(k_), el, el+ex, k, n))
 
 print("Error Pattern:", bin(ep)[2:])
-print('rc: ', rc, 'rp: ', rp )
+print('rc: ', rc+64, 'rp: ', rp+64 )
 print('Error Location:', i)
+print('TEST:', (-510*(rp+64) + 511*(rc+64)), n)
 
 # ultimate test
 print('Is correct:', m==cm)

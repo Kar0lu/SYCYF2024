@@ -21,7 +21,6 @@ def pregister(n, v, ep):
     
     counter = 0
     print('---------Rp Shifts---------')
-    print(ep)
     while(register != ep):
         counter += 1
         
@@ -31,6 +30,6 @@ def pregister(n, v, ep):
         register |= (buffor << 8)
         register ^= (buffor << 4)
         
-        print(f'[{counter}] [{0}] | {format(register, "#09b")[2:]}')
+        print(f'[{counter}] [{0}] | {format(register, "#09b")[2:].zfill(9)}')
 
     return counter

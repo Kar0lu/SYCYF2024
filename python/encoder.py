@@ -19,7 +19,7 @@ def encoder(n, k, m):
     
         # print(f'[{counter%266}] [{current}] | {bin(register)[2:].zfill(24)}')
     
-    # counter = 0
+    counter = 0
     v = 0
 
     for i in range(n-k):
