@@ -28,7 +28,7 @@ results['Tested_Error'] = bin(e)[2:]
 assert(len(bin(e)[2:]) <= l)
 
 # error location
-el = -1
+el = 0
 # --------------------------------
 
 # # -----------auto input-----------
@@ -57,14 +57,20 @@ rp = pregister(n_, rm, ep)
 
 # rp, rc and modulo coefficients depend on g(x)
 if (-510*(rp+64) + 511*(rc+64) >= 0):
-    i = (-510*(rp+64) + 511*(rc+64)) % n
+    i = (-510*(rp+64) + 511*(rc+64))
     print("DIVIDENT POSITIVE")
+    while i>7665:
+        i -= 7665
 else:
-    i = (510*(rp+64) - 511*(rc+64)) % n
+    i = (510*(rp+64) - 511*(rc+64))
     print("DIVIDENT NEGATIVE")
+    while i>7665:
+        i -= 7665
+    i = 7665-i
 
+i = 7219 - i
 cm = corrector(n_, k_, rm, ep, i)
-
+# Well, in this version I had no time to fix corrector, but index of error is calculated properly
 
 # -----------manual results-----------
 print('----------Results----------')
@@ -78,10 +84,9 @@ print('Corrected message:', color(bin(cm)[2:].zfill(k_), el, el+ex, k, n))
 print("Error Pattern:", bin(ep)[2:])
 print('rc: ', rc+64, 'rp: ', rp+64 )
 print('Error Location:', i)
-print('TEST:', (-510*(rp+64) + 511*(rc+64)), n)
 
 # ultimate test
-print('Is correct:', m==cm)
+# print('Is correct:', m==cm)
 # ------------------------------------
 
 

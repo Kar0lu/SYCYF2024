@@ -12,6 +12,13 @@ module tb;
     reg [N-1:0] data_in;
     wire [N-1:0] data_out;
 
+    reg [K-1:0] original_data, decoded_data;
+    reg [7:0] error_pattern;
+    reg [6:0] shift_amount;
+    reg [N-1:0] encoded_data, corrupted_data;
+    integer infile, outfile;
+    integer r;
+
     system #(.N(N), .K(K)) UUT (
         .clk(clk),
         .rst(rst),
@@ -28,54 +35,59 @@ module tb;
     end
 
     initial begin
-        data_in = 0;
-        rst = 1;
-        #5;
-        rst = 0;
-        $display("[%4t] | START ENCODING", $time);
-        data_in = 40'b1101110101010100100001101010101010010001;
-        $display("[%4t] | data_in: %40b", $time, data_in);
-        mode = ENCODE;
-        @(posedge data_out, negedge data_out);
-        mode = IDLE;
-        $display("[%4t] | DATA ENCODED | %64b", $time, data_out);
-        #5;
-        $display("[%4t] | START DECODING", $time);
-        data_in = data_out ^ (64'b00000001 << 0)&64'b1111111111111111111111111111111111111111111111111111111111111111;
-        $display("[%4t] | data_in: %64b", $time, data_in);
-        mode = DECODE;
-        @(posedge data_out, negedge data_out);
-        $display("[%4t] | DATA DECODED | %40b", $time, data_out);
-        if(data_out == 40'b1101110101010100100001101010101010010001) begin
-            $display("[%4t] | SUCCESS", $time);
-        end else begin
-            $display("[%4t] | FAIL", $time);
+        // Open the input and output files
+        infile = $fopen("input_data.txt", "r");
+        outfile = $fopen("output_data.txt", "w");
+
+        if (infile == 0 || outfile == 0) begin
+            $display("Error: Could not open file.");
+            $finish;
         end
-        mode = IDLE;
-        #5;
-        rst = 1;
-        // #5;
-        // rst = 0;
-        // #5;
-        // $display("[%4t] | START ENCODING", $time);
-        // data_in = 40'b1001110101010100101001101010101010011001;
-        // $display("[%4t] | data_in: %40b", $time, data_in);
-        // mode = ENCODE;
-        // @(posedge data_out, negedge data_out);
-        // mode = IDLE;
-        // $display("[%4t] | DATA ENCODED | %64b", $time, data_out);
-        // #5;
-        // $display("[%4t] | START DECODING", $time);
-        // data_in = data_out ^ (64'b11111111 << 20);
-        // $display("[%4t] | data_in: %64b", $time, data_in);
-        // mode = DECODE;
-        // @(posedge data_out, negedge data_out);
-        // $display("[%4t] | DATA DECODED | %40b", $time, data_out);
-        // if(data_out == 40'b1001110101010100101001101010101010011001) begin
-        //     $display("[%4t] | SUCCESS", $time);
-        // end else begin
-        //     $display("[%4t] | FAIL", $time);
-        // end
-        // mode = IDLE;
+
+
+        while (!$feof(infile)) begin
+            data_in = 0;
+            rst = 1;
+            #5;
+            rst = 0;
+            // Read data from file
+            r = $fscanf(infile, "%b %b %d\n", original_data, error_pattern, shift_amount);
+            if (r != 3) begin
+                $display("Error: File read error.");
+                $finish;
+            end
+
+            // Start encoding
+            $display("[%4t] | START ENCODING | original_data: %b | error_pattern: %b | shift_amount: %d", $time, original_data, error_pattern, shift_amount);
+            $display("[%4t] | data_in: %40b", $time, original_data);
+            data_in = original_data;
+            mode = ENCODE;
+            @(posedge data_out, negedge data_out);
+            mode = IDLE;
+            encoded_data = data_out;
+            $display("[%4t] | DATA ENCODED | %64b", $time, encoded_data);
+            #5;
+
+            // Corrupt data
+            $display("[%4t] | START DECODING", $time);
+            corrupted_data = encoded_data ^ (error_pattern << shift_amount);
+            $display("[%4t] | corrupted_data: %64b", $time, corrupted_data);
+            data_in = corrupted_data;
+            mode = DECODE;
+            @(posedge data_out, negedge data_out);
+            decoded_data = data_out;
+            mode = IDLE;
+            $display("[%4t] | DATA DECODED | %40b", $time, decoded_data);
+
+            // Write data to file
+            $fwrite(outfile, "%40b %8b %2d %s\n", original_data, error_pattern, shift_amount, (original_data == decoded_data) ? "SUCCESS" : "FAIL");
+            #5;
+        end
+
+        // Close the files
+        $fclose(infile);
+        $fclose(outfile);
+        
+        $stop;
     end
 endmodule

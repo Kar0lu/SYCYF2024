@@ -33,4 +33,4 @@ sim:/tb/UUT/u_reg_p/local_reg
 add wave -radix decimal -position insertpoint  \
 sim:/tb/UUT/u_reg_p/count
 
-run 4000
+run -all
