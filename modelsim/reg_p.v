@@ -6,11 +6,11 @@ module reg_p #(
     input rst,
     input shift,
     input [N-1:0] data_in,
-    output [9:0] count,
+    output [10:0] count,
     output [8:0] data_out
 );
     reg [8:0] local_reg;
-    reg [9:0] local_count;
+    reg [10:0] local_count;
 
     assign data_out = local_reg;
     assign count = local_count;

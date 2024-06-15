@@ -41,7 +41,7 @@ module tb;
         $display("[%4t] | DATA ENCODED | %64b", $time, data_out);
         #5;
         $display("[%4t] | START DECODING", $time);
-        data_in = data_out ^ (64'b11111111 <<59);
+        data_in = data_out ^ (64'b00000001 << 0)&64'b1111111111111111111111111111111111111111111111111111111111111111;
         $display("[%4t] | data_in: %64b", $time, data_in);
         mode = DECODE;
         @(posedge data_out, negedge data_out);

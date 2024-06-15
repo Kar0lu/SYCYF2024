@@ -13,10 +13,7 @@ module controler #(
 
     input [5:0] reg_e_count,
     input [7:0] reg_c_count,
-    input [9:0] reg_p_count,
-
-    input [31:0] modulo_remainder,
-    input modulo_done,
+    input [10:0] reg_p_count,
 
     output reg [K-1:0] reg_e_in,
     output reg [N-1:0] reg_c_in,
@@ -25,28 +22,29 @@ module controler #(
     output reg shift_e,
     output reg shift_c,
     output reg shift_p,
-    output reg [N-1:0] data_out,
-
-    output reg [31:0] dividend,
-    output reg [31:0] divisor,
-    output reg start_modulo
+    output reg [N-1:0] data_out
 );
 
     reg [2:0] state;
     reg [25:0] i;
+    reg [14:0] reg_c_out_temp;
+    reg [7:0] reg_c_count_temp;
     reg [8:0] reg_p_out_temp;
-    reg [9:0] reg_p_count_temp;
+    reg [10:0] reg_p_count_temp;
+    reg is_negative;
 
-    initial begin
-        $monitor("[%4t] | reg_c_out: %b | reg_c_count: %d | reg_p_out: %b | reg_p_count: %d", $time, reg_c_out, reg_c_count, reg_p_out, reg_p_count);
-    end
+    // initial begin
+    //     $monitor("[%4t] | reg_c_out: %b | reg_c_count: %d | reg_p_out: %b | reg_p_count: %d", $time, reg_c_out, reg_c_count, reg_p_out, reg_p_count);
+    //     $monitor("[%4t] | reg_c_out_temp: %b | reg_c_count_temp: %d | reg_p_out_temp: %b | reg_p_count_temp: %d", $time, reg_c_out_temp, reg_c_count_temp, reg_p_out_temp, reg_p_count_temp);
+    //     $monitor("[%4t] | i: %d", $time, i);
+    // end
 
     localparam IDLE = 3'b000;
     localparam ENCODE = 3'b001;
     localparam DECODE = 3'b010;
     localparam DECODE_SHIFT_C = 3'b011;
     localparam DECODE_SHIFT_P = 3'b100;
-    localparam WAIT_MODULO = 3'b101;
+    localparam DECODE_MODULO = 3'b101;
 
     always @(posedge clk or posedge rst) begin
         if (rst) begin
@@ -57,7 +55,6 @@ module controler #(
             shift_e <= 0;
             shift_c <= 0;
             shift_p <= 0;
-            start_modulo <= 0;
         end else begin
             case (state)
                 IDLE: begin
@@ -98,8 +95,10 @@ module controler #(
                 end
 
                 DECODE_SHIFT_C: begin
-                    if ((reg_c_out[7:0] & 8'b11111110) == 8'b00000000) begin
+                    if ((reg_c_out[6:0] & 7'b1111111) == 7'b0000000) begin
                         shift_c <= 0;
+                        reg_c_out_temp <= reg_c_out; 
+                        reg_c_count_temp <= reg_c_count; 
                         $display("[%4t] | DECODE_2 FINISHED", $time);
                         state <= DECODE_SHIFT_P;
                     end else begin
@@ -108,34 +107,41 @@ module controler #(
                 end
 
                 DECODE_SHIFT_P: begin
-                    if (reg_p_out == {1'b0, reg_c_out[14:7]}) begin
+                    if (reg_p_out == {1'b0, reg_c_out_temp[14:7]}) begin
                         $display("[%4t] | DECODE_3 FINISHED", $time);
                         reg_p_out_temp <= reg_p_out; 
                         reg_p_count_temp <= reg_p_count; 
                         shift_p <= 0;
-                        if((-510*(reg_p_count) + 511*(reg_c_count))<65536) begin
-                            dividend <= (-510*(reg_p_count) + 511*(reg_c_count));
+                        if((-510*(reg_p_count) + 511*(reg_c_count_temp))<65536) begin
+                            i <= (-510*(reg_p_count) + 511*(reg_c_count_temp));
                             $display("[%4t] | DIVIDENT POSITIVE", $time);
+                            is_negative <= 0;
                         end else begin
-                            dividend <= (510*(reg_p_count) - 511*(reg_c_count));
+                            i <= (510*(reg_p_count) - 511*(reg_c_count_temp));
                             $display("[%4t] | DIVIDENT NEGATIVE", $time);
+                            is_negative <= 1;
                         end
-                        divisor <= 7665;
-                        start_modulo <= 1;
-                        state <= WAIT_MODULO;
+                        state <= DECODE_MODULO;
                     end else begin
                         shift_p <= 1;
                     end
                 end
 
-                WAIT_MODULO: begin
-                    // $display("[%4t] | WAIT_MODULO | dividend: %0b | divisor: %0b", $time, dividend, divisor);
-                    start_modulo <= 0;
-                    if (modulo_done) begin
-                        $display("[%4t] | MODULO DONE | dividend: %0d | divisor: %0d", $time, dividend, divisor);
-                        i = modulo_remainder;
-                        $display("[%4t] | rc = %d | rp = %d | i = %d", $time, reg_c_count, reg_p_count_temp, i);
-                        data_out = ((({reg_p_out_temp[0], reg_p_out_temp[1], reg_p_out_temp[2], reg_p_out_temp[3], reg_p_out_temp[4], reg_p_out_temp[5], reg_p_out_temp[6], reg_p_out_temp[7]} << i)^data_in)>>24)&40'b1111111111111111111111111111111111111111;
+                DECODE_MODULO: begin
+                    if(i>=7665) begin
+                        i <= i-7665;
+                    end else begin
+                        if(is_negative) begin
+                            i = 7665-i;
+                        end
+                        i = 7219 - i;
+                        if (i>63 || i<17) begin
+                            data_out = (data_in>>24)&40'b1111111111111111111111111111111111111111;
+                        end else begin
+                            data_out = ((({reg_p_out_temp[0], reg_p_out_temp[1], reg_p_out_temp[2], reg_p_out_temp[3], reg_p_out_temp[4], reg_p_out_temp[5], reg_p_out_temp[6], reg_p_out_temp[7]} << i)^data_in)>>24)&40'b1111111111111111111111111111111111111111;
+                        end
+                        
+                        $display("[%4t] | rc = %d | rp = %d | i = %d | pattern: %b", $time, reg_c_count_temp, reg_p_count_temp, i, {reg_p_out_temp[0], reg_p_out_temp[1], reg_p_out_temp[2], reg_p_out_temp[3], reg_p_out_temp[4], reg_p_out_temp[5], reg_p_out_temp[6], reg_p_out_temp[7]});
                         $display("[%4t] | DECODE_4 FINISHED | data_out: %40b", $time, data_out);
 
                         shift_p <= 0;

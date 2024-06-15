@@ -33,12 +33,4 @@ sim:/tb/UUT/u_reg_p/local_reg
 add wave -radix decimal -position insertpoint  \
 sim:/tb/UUT/u_reg_p/count
 
-add wave -position insertpoint  \
-sim:/tb/UUT/u_modulo_divisor/start
-add wave -position insertpoint  \
-sim:/tb/UUT/u_modulo_divisor/dividend
-add wave -position insertpoint  \
-sim:/tb/UUT/u_modulo_divisor/divisor
-
-
 run 4000
